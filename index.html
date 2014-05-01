@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CS525 Tool Description">
+    <meta name="author" content="Jeremy Carson">
+
+    <title>Fixed Top Navbar Example for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap theme -->
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!--  <link href="/css/grids.css" rel="stylesheet"> -->
+    <!-- Custom styles for this template -->
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+  </head>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://d3js.org/">D3.js</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#started">Getting Started</a></li>
+            <li><a href="#selections">Selections</a></li>
+            <li><a href="#bargraph">Graphs</a></li>
+            <li><a href="#svg">D3/SVG</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+          </ul>   
+          <div class="navbar-right">
+          <p class="navbar-text">Author: Jeremy Carson</p> 
+        </div>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <a id="intro"></a>
+      <div class="page-header">
+      
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="container container-md-height">
+          <div class="col-md-7">
+          <h1 style="padding-top: 50px; margin-top: -40px;">Introduction</h1>
+          <blockquote>
+            <p>D3.js is like assembly for web designers.</p>
+            <footer>CS525 Classmate</footer>
+          </blockquote>
+          <p><b>Data-Driven Documents (D3.js)</b> is a JavaScript library for manipulating the document
+          object model (DOM) using arbitrary data and data-driven transformations.  The key
+          feature of D3 is that it isn't tied to an unwiedly custom framework that might become
+          obsolete* in short order.  Instead, the programmer "draws" on the screen using objects
+          like &lt;div&gt; blocks, analogous to pixel drawing in assembly.  
+          </p>
+          <p><i>*Note:  D3 succeeded Protovis which succeeded Flare and Prefuse in turn.  D3's claim that it
+            isn't tied to an obsolete framework should be taken with a grain of salt.  History would suggest that D3 itself could be obsolete in a few years.</i></p>
+          <p>The idea behind D3 is that Data-driven transformations modify the existing DOM so that
+          D3 can expose the capabilities of CSS, HTML, and SVG in a W3C-compliant manner.
+          Though D3 can be used to generate HTML elements like tables the real power is in
+          its ability to render visualizations using SVG.  Examples include: Bar charts, bubble graphs, scatter plots, etc. See more examples <a href="https://github.com/mbostock/d3/wiki/Gallery">here</a>.</p> 
+        </div>
+       <div class="col-md-5">
+            <img class="featurette-image img-responsive" src="pc.png" alt="Parallel Coordinates: D3"/>
+          </div>
+      </div>
+     </div><!-- /intro page-header div -->
+        <a id="started"></a>
+        <div class="page-header">
+        <!-- Main component for a primary marketing message or call to action -->
+          <h2 style="padding-top: 50px; margin-top: -40px;" >Getting Started</h2>
+          <p>Setup is very simple.  D3.js leverages existing CSS and HTML to do the customization and layout heavy lifting so the actual library is only a single
+          file, <b>d3.js</b> or <b>ds.min.js</b>.  There are numerous D3 modules on the web that extend D3's capbilities.  To load D3.js:</p>
+          <pre class="prettyprint lang-html"><code class="html">&lt;script src="http://d3js.org/d3.v3.min.js" charset="utf-8">&lt;/script></code></pre>
+
+          <p>Or download it <a href="http://d3js.org/">here</a> </p>
+
+          <p>
+          Here is the ubiquitious hello world example.  Nothing D3 related is happening, yet.:
+          </p>
+          <pre class="prettyprint lang-html">
+&lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html;charset=utf-8"&gt;
+    &lt;title&gt;Hello World&lt;/title&gt;
+    &lt;script src="http://d3js.org/d3.v3.min.js" charset="utf-8">&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class="container"&gt;
+    &lt;p&gt;Hello World&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+        
+       </div><!-- /getting started page-header div -->
+       <a id="selections"></a>
+       <div class="page-header">
+        <!-- Main component for a primary marketing message or call to action -->
+          <h2 style="padding-top: 50px; margin-top: -40px;" >Selections</h2>
+          <p>
+          D3, like JQuery, handles element creation using collections of objects.  In the case of D3 these are called <i>selections</i>.  Selections
+          are arrays of elements from the current document that allow for mass manipulation of the object model.  For instance 
+          you could select all "divs", all classes named "tim", or maybe all attributes "style=padding-top" and
+          execute some global action on all elements of those types.
+          </p>  
+          <p>Selections are one of the core features of D3.  They eliminate (or at least reduce) the need
+            for explicit loops leading to cleaner code.</p>
+         
+          <p>Let's revisit the hello world example above and instead of explicity creating
+            a "Hello World" paragraph we'll use D3:
+            </p>
+            <pre class="prettyprint lang-html">
+d3.select(".container")
+  .append("p")
+  .text("Hello World from D3")
+  .style("color", "black")</pre>
+          <p>In the hello world example, the div class was a "container" so we select ".container"
+            to obtain the correct object.  The statement above selects the first container class
+            and appends a new paragraph.</p>
+            <p>To make things *slightly* more interesting let's also quickly look at selecting all containers:</p>
+              <pre class="prettyprint lang-html">
+d3.selectAll(".container")
+  .append("p")
+  .text("Hello World from D3")
+  .style("color", "black")</pre>          
+          <p>The difference is subtle, from <i>select</i> to <i>selectAll</i>.  But in this second version 
+            D3 will return <b>N</b> containers and will execute the append action to each.  Putting this together
+            we get:
+          </p>
+          <pre class="prettyprint lang-html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html;charset=utf-8"&gt;
+    &lt;title&gt;Hello Worlds&lt;/title&gt;
+    &lt;script src="http://d3js.org/d3.v3.min.js" charset="utf-8"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class="container"&gt;&lt;/div&gt;
+    &lt;div class="container"&gt;&lt;/div&gt;
+    &lt;div class="container"&gt;&lt;/div&gt;
+    &lt;script type="text/javascript"&gt;
+    d3.selectAll(".container")
+      .append("p")
+      .text("Hello World from D3")
+      .style("color", "black");
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+          <p>
+            <a href="/hello_world.html"><button type="button" class="btn btn-success">Working Example</button></a>
+          </p>
+       </div> <!-- /selections page-header div -->
+
+       <a id="bargraph"></a>
+       <div class="page-header">
+        <h2 style="padding-top: 50px; margin-top: -40px;" >Bar Graphs</h2>
+        <p>Printing "hello world" <i>ad nauseum</i> is all well and good but more than a little dull.  Here we'll look at the power of D3 in creating a simple bar chart.
+          Using what we know about selections let's compare the hard-code version to the D3 version.
+        </p>
+        <p>First we need some dummy data:        
+        </p>
+        <pre class="prettyprint lang-js">
+var dummy_data = [1,2,3,4,5]</pre>
+        <p>
+          <blockquote>So the combination is... one, two, three, four, five? That's the stupidest combination I've ever heard in my life! That's the kind of thing an idiot would have on his luggage!<footer>Spaceballs</footer></blockquote>
+        </p>
+        <p>Next we'll create several vertical bars where the height of each bar is dummy_data[i] * 10px. </p>
+        <div class="container container-md-height">
+         <div class="col-md-6 left">
+         <p>Hard Coded:</p>
+         <pre class="prettyprint lang-html">
+&lt;div class="chart"&gt;
+&lt;div style="height: 10px; class="bar""&gt;1&lt;/div&gt;
+&lt;div style="height: 20px; class="bar""&gt;2&lt;/div&gt;
+&lt;div style="height: 30px; class="bar""&gt;3&lt;/div&gt;
+&lt;div style="height: 40px; class="bar""&gt;4&lt;/div&gt;
+&lt;div style="height: 50px; class="bar""&gt;5&lt;/div&gt;
+&lt;/div&gt;</pre>
+         <a href="/bargraph_html.html"><button type="button" class="btn btn-success">Working Example</button></a>
+         </div>
+         <div class="col-md-6 right">
+          <p>D3 Selection:</p>
+          <pre class="prettyprint lang-js">
+d3.select(".chart")
+  .selectAll(".div")
+  .data(dummy_data)
+  .enter().append("div")
+  .style("height", function(d) { return d * 10 + "px"; }).attr("class","bar");
+  </pre>
+         <a href="/bargraph_d3.html"><button type="button" class="btn btn-success">Working Example</button></a>
+         </div>
+      <br></br>
+         <p>Though the two examples are very similar, their path to a full HTML page is slightly different.</p>
+       </div> <!-- /bargraph page-header div -->
+      <a id="svg"></a>
+      <div class="page-header">
+      <h2 style="padding-top: 50px; margin-top: -40px;" >Scalable Vector Graphics</h2>
+      <p>Now that we've seen how to use <i>selections</i> to manipulate document objects in to drawing
+         charts let's work a full example.  We'll our tour of D3 with a look at scalable vector graphics (SVG).  SVG's sole purpose in life is to draw primitives:  Circles, curves, polygons, and <a href="http://www.w3schools.com/SVG/svg_reference.asp">more</a>.  Since the focus of this introduction is D3, not SVG, it is up
+         to the reader to learn more about <a href="http://www.w3schools.com/SVG/default.asp">SVG</a>.
+
+         Unlike the last examples we want to load our data from a remote source, like a spreadsheet.  D3 <a href="https://github.com/mbostock/d3/wiki/Requests">supports</a> a large number of file types.  Our example will focus on
+         comma delimited spreadsheets (.csv).  The following is the CSV loading skeleton:
+         <pre class="prettyprint lang-js">
+d3.csv("path/to/file.csv")
+    .row(function(d) { return {key: d.key, value: +d.value}; })
+    .get(function(error, rows) { console.log(rows); });
+    });
+      </pre>
+      </p>
+
+      <p>Using D3.CSV we can load the price of tea in london.  Why London and not China?  The price of tea
+        in China was not available in a handy CSV.</p>
+
+      <iframe width=100% height=250 src="/tea_simple.html" marginwidth="0" marginheight="0" scrolling="yes"></iframe>
+      <p >[<a href="http://www.indexmundi.com/commodities/?commodity=tea&months=60">Original data source</a>]</p>
+      <a href="/tea.html"><button type="button" class="btn btn-success">Full Version</button></a>
+
+      <p>There are several elements at work here.  First is the full data load.   This creates our X and Y 
+        domains.</p>
+      <pre class="prettyprint lang-js">
+d3.csv("tea_london.csv", type, function(error, data) {
+  console.log(data);
+  x.domain(data.map(function(d) { return d.Date; }));
+  y.domain([0, d3.max(data, function(d) { return d.Price; })]);
+      </pre>
+       <p>Next, to give our data some flavor, we add axis labels and tick marks (labels are fully visible in
+        the full example):</p>
+      <pre class="prettyprint lang-js">
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis)
+
+svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+  .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 5)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("Price");
+
+      </pre>
+      <p>Finally we use a <i>selection</i> to iterate through our data to generate the vertical bars:</p>
+      <pre class="prettyprint lang-js">
+svg.selectAll(".bar")
+    .data(data)
+  .enter().append("rect")
+    .attr("class", "bar")
+    .attr("x", function(d) { return x(d.Date); })
+    .attr("width", x.rangeBand())
+    .attr("y", function(d) { return y(d.Price); })
+    .attr("height", function(d) { return height - y(d.Price); });
+  </pre>
+    <p>Even though there are not yet any .bar elements in the document they will be generated
+      by the data source.</p>
+      </div> <!-- /svg page-header div -->
+
+      <a id="conclusion"></a>
+       <div class="page-header">
+        <h2 style="padding-top: 50px; margin-top: -40px;" >Conclusion</h2>
+        <p>D3.js is a powerful tool for visualizing statistics.  Though difficult to learn, 
+          there are numerous resources, examples, and tutorials on the web to examine
+          and adapt.  D3 does require an understanding of CSS and HTML.  While it's certainly
+          possible to cobble together rough D3 code the nature of DOM editting lends itself
+          to tricky debugging.  
+        <p>For more examples please see:</p>
+        <ul>
+        <li><a href="https://github.com/mbostock/d3/wiki/Gallery">D3 Gallery</a></li>
+        <li><a href="https://github.com/mbostock/d3/wiki/Tutorials">D3 Tutorials</a></li>
+        <li><a href="http://alignedleft.com/tutorials/d3/">More D3 Tutorials</a></li>
+
+
+        </ul>
+      </div><!-- /final page-header div -->
+    </div> <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>
